@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+#!/usr/bin/env python
 import curses
 import time
 
@@ -5,7 +7,7 @@ import time
 US states quiz for learning the states by heart.
 Written by Gunnar Myhre, October 2020
 Keep an eye out for new quizes at:
-https://github.com/raflemakt/div/blob/master/quiz/
+https://github.com/raflemakt/div/blob/master/quiz
 """
 
 us_states = [
@@ -285,7 +287,9 @@ def main(stdscr):
         quiz_loop(stdscr)
     except:
         stdscr.erase()
-        res = "Terminal too small!"
+        res = "Failed to draw to the screen"
+        if (h <= 25) or (w <= 65):
+            res = "Terminal too small!"
         stdscr.addstr(h//2, w//2-len(res)//2, res)
         stdscr.getch()
     return 0
