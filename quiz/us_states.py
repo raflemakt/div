@@ -5,7 +5,7 @@ import time
 US states quiz for learning the states by heart.
 Written by Gunnar Myhre, October 2020
 Keep an eye out for new quizes at:
-https://github.com/raflemakt/div/quiz/blob/master/us_states.py
+https://github.com/raflemakt/div/blob/master/quiz/
 """
 
 us_states = [
