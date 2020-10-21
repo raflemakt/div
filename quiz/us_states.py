@@ -265,7 +265,7 @@ def quiz_loop(stdscr):
     #if you reach this point you've guessed 50 states and won the game
     endtime = time.time()
     elap = endtime - starttime
-    win_graphics(stdscr, 5,5, elap)
+    win_graphics(stdscr, 0,1, elap)
 
 
 def draw_USA(stdscr, y, x, gfx_add):
