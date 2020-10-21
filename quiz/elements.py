@@ -342,7 +342,7 @@ def quiz_loop(stdscr, min_h, min_w):
             stdscr.erase()
             draw_table(stdscr, 0, 0, gfx_add)
             stdscr.addstr(32,4,"Guess the elements:")
-            stdscr.addstr(32,25,text)
+            stdscr.addstr(32,24,text)
             print_big_number(stdscr, 118-len(guessed), 2, 15)
             stdscr.addstr(8, 15, "remaining")
             stdscr.addstr(0, 28, "write 'quit' to exit", curses.color_pair(5))
