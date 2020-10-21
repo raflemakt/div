@@ -6,15 +6,15 @@ import time
 """
 US states quiz for learning the states by heart.
 Written by Gunnar Myhre, October 2020
-Keep an eye out for new quizes at:
+Keep an eye out for new quizzes at:
 https://github.com/raflemakt/div/blob/master/quiz
 """
 
 us_states = [
 ["Alabama",         (15,42),    "AL"],
 ["Alaska",          (1,1),      "\ AK"],
-["Arizona",         (14,11),   "Ariz."],
-["Arkansas",        (14,34),   "Ark."],
+["Arizona",         (14,11),    "Ariz."],
+["Arkansas",        (14,34),    "Ark."],
 ["California",      (11,3),     "Cal"],
 ["Colorado",        (10,18),    "Colo."],
 ["Connecticut",     (7, 57),    "Conn"],
@@ -193,9 +193,10 @@ def curses_init(stdscr):
     curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_BLUE)
     curses.init_pair(4, curses.COLOR_RED, curses.COLOR_BLACK)
     curses.init_pair(5, curses.COLOR_YELLOW, curses.COLOR_BLACK)
+    curses.init_pair(6, curses.COLOR_BLACK, curses.COLOR_RED)
     stdscr.erase()
 
-def quiz_loop(stdscr):
+def quiz_loop(stdscr, min_h, min_w):
     """All the game logic is put in here"""
     h, w = stdscr.getmaxyx()
     text = ""
@@ -211,61 +212,62 @@ def quiz_loop(stdscr):
 
     #game loop, while guessed states are fewer than 50
     while len(guessed) < 50:
-        if (h < 25) or (w < 65):
-            res = "Please resize terminal to 24/65 or larger"
-            stdscr.addstr(h//2, w//2-len(res)//2, res)
+        check_term_minsize(stdscr, min_h, min_w)
 
-        #fetch a key and add it to "text"
-        key = stdscr.getch()
-        c = chr(key)
-        if ("A" <= c <= "z") or c == " ":
-            if len(text) <= 16:
-                text += c
+        try:
+            #fetch a key and add it to "text"
+            key = stdscr.getch()
+            c = chr(key)
+            if ("A" <= c <= "z") or c == " ":
+                if len(text) <= 16:
+                    text += c
 
-        #if ENTER is pressed, check if "text" is either a correctly
-        #spelled state or "quit". Case insensitive
-        elif key == curses.KEY_ENTER or key in [10,13]:
-            if text.lower() == "quit":
-                stdscr.erase()
-                s = "You FAILED America!"
-                for line in range(0, len(eagle)):
-                    stdscr.addstr(3+line, 8, eagle[line])
-                stdscr.addstr(7, 27, "\u262D", curses.color_pair(4))
-                stdscr.addstr(19, w//2-len(s)//2, s)
-                stdscr.refresh
-                stdscr.getch()
-                return
-            i = 0
-            #check if answer is correct, and add the state coordinates
-            #and string (shortened name) to "gfx_add"
-            while i < len(us_states):
-                if text.lower() == us_states[i][0].lower():
-                    gfx_add.append([us_states[i][1], us_states[i][2]])
-                    if text.lower() not in guessed:
-                        guessed.append(text.lower())
-                i += 1
-            #either way, "text" will be reset when ENTER is pressed
-            text = ""
+            #if ENTER is pressed, check if "text" is either a correctly
+            #spelled state or "quit". Case insensitive
+            elif key == curses.KEY_ENTER or key in [10,13]:
+                if text.lower() == "quit":
+                    stdscr.erase()
+                    s = "You FAILED America!"
+                    for line in range(0, len(eagle)):
+                        stdscr.addstr(3+line, 8, eagle[line])
+                    stdscr.addstr(7, 27, "\u262D", curses.color_pair(4))
+                    stdscr.addstr(19, w//2-len(s)//2, s)
+                    stdscr.refresh
+                    stdscr.getch()
+                    return
+                i = 0
+                #check if answer is correct, and add the state coordinates
+                #and string (shortened name) to "gfx_add"
+                while i < len(us_states):
+                    if text.lower() == us_states[i][0].lower():
+                        gfx_add.append([us_states[i][1], us_states[i][2]])
+                        if text.lower() not in guessed:
+                            guessed.append(text.lower())
+                    i += 1
+                #either way, "text" will be reset when ENTER is pressed
+                text = ""
 
-        #if backspace is pressed, remove last character from "text"
-        elif key == (curses.KEY_BACKSPACE or 127):
-            if len(text) > 0:
-                text = text[:-1]
-                stdscr.erase()
+            #if backspace is pressed, remove last character from "text"
+            elif key == (curses.KEY_BACKSPACE or 127):
+                if len(text) > 0:
+                    text = text[:-1]
+                    stdscr.erase()
 
-        #redraw the screen
-        stdscr.erase()
-        draw_USA(stdscr, 0, 0, gfx_add)
-        stdscr.addstr(20,4,"Guess the states:")
-        stdscr.addstr(21,9,text)
-        print_big_number(stdscr, 50-len(guessed), 19, 31)
-        stdscr.addstr(0, 28, "write 'quit' to exit", curses.color_pair(5))
-        stdscr.refresh()
+            #redraw the screen
+            stdscr.erase()
+            draw_USA(stdscr, 0, 0, gfx_add)
+            stdscr.addstr(20,4,"Guess the states:")
+            stdscr.addstr(21,9,text)
+            print_big_number(stdscr, 50-len(guessed), 19, 31)
+            stdscr.addstr(0, 28, "write 'quit' to exit", curses.color_pair(5))
+            stdscr.refresh()
+        except:
+            check_term_minsize(stdscr, min_h, min_w)
 
     #if you reach this point you've guessed 50 states and won the game
     endtime = time.time()
     elap = endtime - starttime
-    win_graphics(stdscr, 5,5, elap)
+    win_graphics(stdscr, 0,1, elap)
 
 
 def draw_USA(stdscr, y, x, gfx_add):
@@ -275,22 +277,37 @@ def draw_USA(stdscr, y, x, gfx_add):
     for item in gfx_add:
         stdscr.addstr(item[0][0], item[0][1]-1, item[1], curses.color_pair(2))
 
+def check_term_minsize(stdscr, min_h, min_w):
+    while True:
+        h, w = stdscr.getmaxyx()
+        if (h < min_h) or (w < min_w):
+            stdscr.erase()
+            if h < min_h:
+                red_h_bar = str("V" * (w-1))
+                stdscr.addstr(h-1, 0, red_h_bar, curses.color_pair(6))
+            if w < min_w:
+                for l in range(0, h):
+                    stdscr.addstr(l, w-2, ">", curses.color_pair(6))
+            res = "Terminal too small!"
+            stdscr.addstr(h//2, w//2-len(res)//2, res)
+        stdscr.refresh()
+        if (h >= min_h) and (w >= min_w):
+            break
+        time.sleep(.10)
 
 
 def main(stdscr):
-    h, w = stdscr.getmaxyx()
     l = us_states
     curses_init(stdscr)
+    min_h, min_w = 25, 65
+    check_term_minsize(stdscr, min_h, min_w)
 
     try:
         draw_USA(stdscr, 0, 0, [])
-        quiz_loop(stdscr)
+        quiz_loop(stdscr, min_h, min_w)
     except:
         stdscr.erase()
         res = "Failed to draw to the screen"
-        if (h <= 25) or (w <= 65):
-            res = "Terminal too small!"
-        stdscr.addstr(h//2, w//2-len(res)//2, res)
         stdscr.getch()
     return 0
 
