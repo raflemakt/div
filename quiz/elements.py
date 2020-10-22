@@ -28,7 +28,7 @@ elements = [
 ["Na",  (9,3),      ["Sodium", "Natrium"]],
 ["Mg",  (9,7),      ["Magnesium"]],
 ["Al",  (9,51),     ["Aluminum", "Aluminium"]],
-["Si",  (9,55),     ["Silicon"]],
+["Si",  (9,55),     ["Silicon", "Silicium"]],
 ["P" ,  (9,59),     ["Phosphorus"]],
 ["S" ,  (9,63),     ["Sulfur"]],
 ["Cl",  (9,67),     ["Chlorine"]],
