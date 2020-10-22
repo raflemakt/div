@@ -1,6 +1,13 @@
 import curses
 from curses import textpad
 
+"""
+This file is an example of how to make a menu with python/curses.
+The list of items (menu_items) are printed to the screen and you
+choose between them with the arrow keys.
+Pressing ENTER executes the code block for the current choise.
+"""
+
 menu_items = ["Item1", "Item2", "ItemN", "I use arch btw", "Exit"]
 
 
