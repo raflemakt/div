@@ -60,9 +60,9 @@ def main(stdscr):
                 break
             #in here you paste your different menu options like this:
             """
-            elif current_row_idx == 0:
+            elif current_row == 0:
                 function_1()
-            elif current_row_idx == 1:
+            elif current_row == 1:
                 function_2()
             """
             
