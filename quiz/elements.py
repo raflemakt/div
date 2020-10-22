@@ -266,7 +266,7 @@ def print_big_number(stdscr, number, offsy, offsx):
             shorter = short[before:]
             spacewait = 0
             for char in shorter:
-                stdscr.addstr(offsy+i, offsx + num_offsx, shorter, curses.color_pair(2))
+                stdscr.addstr(offsy+i, offsx + num_offsx, shorter, curses.color_pair(4))
         num_offsx = num_offsx + length[current_num]
         num_str = num_str[1:]
 
