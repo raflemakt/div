@@ -8,6 +8,11 @@ European countries quiz for learning the countries by heart.
 Written by Gunnar Myhre, October 2020
 Keep an eye out for new quizzes at:
 https://github.com/raflemakt/div/blob/master/quiz
+
+Ascii art credits:
+Win screen composed of two pictures from "JGS"
+Mountains: Unknown
+EU map by myself
 """
 
 countries = [
