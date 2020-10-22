@@ -8,6 +8,10 @@ Periodic table quiz for learning the elements by heart.
 Written by Gunnar Myhre, October 2020
 Keep an eye out for new quizzes at:
 https://github.com/raflemakt/div/blob/master/quiz
+
+Ascii art credits:
+Mushroom cloud: Unknown
+Bunsen burner: "jgs"
 """
 
 elements = [
