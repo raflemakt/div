@@ -8,6 +8,11 @@ US states quiz for learning the states by heart.
 Written by Gunnar Myhre, October 2020
 Keep an eye out for new quizzes at:
 https://github.com/raflemakt/div/blob/master/quiz
+
+Ascii art credits:
+USA flag in map shape: Donna Shepherd
+USA map with states: Unknown
+Eagle: Unknown
 """
 
 us_states = [
