@@ -38,7 +38,7 @@ countries = [
 ["Italy",                    (26,26),   "Italy"],
 ["Kosovo",                   (23,36),   "Kos."],
 ["Latvia",                   (10,40),   "Latvia"],
-["Liechtenstein",            (19,23),   "Licht."],
+["Liechtenstein",            (19,22),   "Liecht."],
 ["Lithuania",                (12,38),   "Lithuania"],
 ["Luxembourg",               (18,21),   "Lux."],
 ["Malta",                    (29,30),   "Malta"],
