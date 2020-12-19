@@ -64,18 +64,18 @@ game_screen = [
 "╚═══╩═══════════════╝"]
 
 epoch_list = [
-        [["Archean"],         [
-                            [(40,8),    5,  "Archean"],
-                            [(39,39),   5,  "Earliest oxygen, photosynthesis"],
-                            [(40,39),   5,  "Late Heavy Bombardement (LHB) ends"],
-                            [(41,39),   5,  "Earliest life"],
-                            [(42,26),   2,  "3875 Ma"]]],
         [["Hadean"],          [
                             [(44,8),    5,  "Hadean"],
                             [(43,39),   5,  "Earliest water"],
                             [(44,39),   5,  "Earth's crust solidifies"],
                             [(45,39),   5,  "Formation of the Moon"],
                             [(46,26),   2,  "4600 Ma"]]],
+        [["Archean"],         [
+                            [(40,8),    5,  "Archean"],
+                            [(39,39),   5,  "Earliest oxygen, photosynthesis"],
+                            [(40,39),   5,  "Late Heavy Bombardement (LHB) ends"],
+                            [(41,39),   5,  "Earliest life"],
+                            [(42,26),   2,  "3875 Ma"]]],
         [["Proterozoic"],     [
                             [(36,8),    5,  "Proterozoic"],
                             [(35,39),   5,  "Global ice ages, Rodinia supercontinent"],
