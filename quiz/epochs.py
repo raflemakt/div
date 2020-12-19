@@ -934,12 +934,13 @@ moon = [
 ["---", 12]]
 
 
-def win_graphics(stdscr, y, x, elap):
+def win_graphics(stdscr, y, x, elap, min_h, min_w):
     """Draws the win graphics and elapsed time"""
     stars = [(3,17), (21,60), (18,80), (8,44), (35,11), (41,27)]
     day_counter = 24
     while True:
         for frame in range(0, 3*len(earth)):
+            check_term_minsize(stdscr, min_h, min_w)
             stdscr.erase()
             #rotating Earth
             stdscr.addstr(y+8, x, earth[frame//3], curses.color_pair(3))
@@ -949,12 +950,16 @@ def win_graphics(stdscr, y, x, elap):
                 stdscr.addstr(stars[s][0], stars[s][1], "*", curses.color_pair(5))
 
             #far Moon on the 13th day
+            if day_counter == 12:
+                stdscr.addstr(23, 75 - frame//6, "@", curses.color_pair(1))
             if day_counter == 13:
                 stdscr.addstr(23, 60 - frame//6, "@", curses.color_pair(1))
             #near Moon on the 27th day
             for row in range(0, len(moon)):
-                if day_counter == 27:
+                if day_counter == 26:
                     stdscr.addstr(5+row, 0 + frame//2 + moon[row][1], moon[row][0], curses.color_pair(1))
+                if day_counter == 27 and frame <= 32:
+                    stdscr.addstr(5+row, 45 + frame//2 + moon[row][1], moon[row][0], curses.color_pair(1))
 
             elap_str = "You won! Time elapsed: {} seconds".format(round(elap, 2))
             stdscr.addstr(30+y, x+47, elap_str, curses.color_pair(5))
@@ -1085,7 +1090,7 @@ def quiz_loop(stdscr, min_h, min_w):
     #if you reach this point you've guessed 23 geological periods and won the game
     endtime = time.time()
     elap = endtime - starttime
-    win_graphics(stdscr, 2,1, elap)
+    win_graphics(stdscr, 2,1, elap, min_h, min_w)
 
 
 def draw_table(stdscr, y, x, gfx_add):
